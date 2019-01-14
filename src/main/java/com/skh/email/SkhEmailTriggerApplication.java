@@ -1,4 +1,4 @@
-package com.cerner.cts.jira;
+package com.skh.email;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -6,13 +6,13 @@ import org.springframework.context.annotation.ImportResource;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 /**
- * @author sh030348
+ * @author 
  *
  */
 @SpringBootApplication
 @EnableJpaAuditing
 @ImportResource( "classpath:spring-batch-quartz-scheduler.xml" )
-public class CtsMalvernJiraApplication
+public class SkhEmailTriggerApplication
 {
 
     /**
@@ -20,6 +20,6 @@ public class CtsMalvernJiraApplication
      */
     public static void main( String[] args )
     {
-        SpringApplication.run( CtsMalvernJiraApplication.class, args );
+        SpringApplication.run( SkhEmailTriggerApplication.class, args );
     }
 }

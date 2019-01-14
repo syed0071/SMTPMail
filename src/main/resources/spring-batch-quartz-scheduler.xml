@@ -17,31 +17,32 @@
     
  
     
-    <context:component-scan base-package="com.cerner.cts.jira"></context:component-scan>
+    <context:component-scan base-package="com.skh.email"></context:component-scan>
     
-    <bean name="jiraMailGenerator" class="com.cerner.cts.jira.JiraMailGenerator"/>
+    <bean name="mailGenerator" class="com.skh.email.MailGenerator"/>
     
     <!-- Quartz Job -->
-	<bean name="jiraMailJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
-		<property name="jobClass" value="com.cerner.cts.jira.JiraMailJob" />
-		<property name="jobDataMap">
+	<bean name="mailJob" class="org.springframework.scheduling.quartz.JobDetailFactoryBean">
+		<property name="jobClass" value="com.skh.email.MailJob" />
+		<property name="jobDataAsMap">
 			<map>
-				<entry key="jiraMailGenerator" value-ref="jiraMailGenerator" />
+				<entry key="mailGenerator" value-ref="mailGenerator" />
 			</map>
 		</property>
 	</bean>
 	
 	
-	<bean id="cronTriggerJiraMailJob" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
-		<property name="jobDetail" ref="jiraMailJob" />
-		<property name="cronExpression" value="0 16 13 1/1 * ? *" />
+	<bean id="cronTriggerMailJob" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+		<property name="jobDetail" ref="mailJob" />
+		<!-- <property name="cronExpression" value="0 16 13 1/1 * ? *" /> -->		
+		<property name="cronExpression" value="0 0/1 0 1/1 * ? *" />
 	</bean>
 
 
 	<bean class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
 		<property name="triggers">
 			<list>
-				<ref bean="cronTriggerJiraMailJob" />
+				<ref bean="cronTriggerMailJob" />
 			</list>
 		</property>
 	</bean>
